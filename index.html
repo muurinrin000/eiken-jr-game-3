@@ -286,6 +286,10 @@
     <div class="question-title">Englishはどれ？</div>
     <div id="enChoices" class="choice-grid"></div>
 
+  <button id="nextBtnTop" class="next-btn" type="button">
+  つぎの問題へ
+</button>
+  
     <div id="feedback" class="feedback"></div>
     <div id="stars" class="stars"></div>
 
@@ -296,7 +300,7 @@
       <button id="jpBtn" type="button">🔊 日本語</button>
     </div>
     
-    <button id="nextBtn" class="next-btn" type="button">つぎの問題へ</button>
+    <button id="nextBtnBottom" class="next-btn" type="button">つぎの問題へ</button>
     <section id="resultScreen" style="display:none; text-align:center; padding:22px;">
   <div style="font-size:48px;">🎉</div>
   <h2 style="font-size:30px; margin:10px 0;">おつかれさま！</h2>
@@ -542,7 +546,7 @@ function speakBoth(){
   speakEnNormal();
 };
   
-$("nextBtn").onclick = () => {
+function nextQuestion(){
   questionIndex++;
 
   if (questionIndex >= words.length) {
@@ -556,10 +560,13 @@ $("nextBtn").onclick = () => {
   }
 
   window.scrollTo({
-    top: 0,
-    behavior: "smooth"
+    top:0,
+    behavior:"smooth"
   });
-};
+}
+
+  $("nextBtnTop").onclick = nextQuestion;
+$("nextBtnBottom").onclick = nextQuestion;
 
   if("speechSynthesis" in window){
     speechSynthesis.getVoices();
