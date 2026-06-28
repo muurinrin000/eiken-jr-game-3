@@ -485,8 +485,15 @@ function speakBoth(){
         $("score").textContent = score;
         $("feedback").textContent = "🎉 Great!";
         $("stars").textContent = "⭐ +1";
-        showAnswer(false);
+      
       }
+      // 日本語・英語どちらも選び終わったら答えを表示
+if(
+  document.querySelectorAll("#jpChoices button:disabled").length === 3 &&
+  document.querySelectorAll("#enChoices button:disabled").length === 3
+){
+    showAnswer(false);
+}
     };
     return btn;
   }
