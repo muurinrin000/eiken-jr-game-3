@@ -950,25 +950,24 @@ document.addEventListener("touchend", function(event){
 
 
   
-document.getElementById("captureBtn").onclick = async () => {
-  const canvas = await html2canvas(document.getElementById("captureArea"), {
+$("captureBtn").onclick = async () => {
+  const canvas = await html2canvas($("captureArea"), {
     backgroundColor:"#ffffff",
     scale:2
   });
 
   const imageUrl = canvas.toDataURL("image/png");
 
-  const newWindow = window.open();
-  newWindow.document.write(`
-    <html>
-      <body style="margin:0; text-align:center; background:#f5f5f5;">
-        <p style="font-size:18px; font-weight:bold;">
-          画像を長押しして「写真に保存」してください
-        </p>
-        <img src="${imageUrl}" style="width:100%; max-width:420px;">
-      </body>
-    </html>
-  `);
+  const img = document.createElement("img");
+  img.src = imageUrl;
+  img.style.width = "100%";
+  img.style.maxWidth = "420px";
+  img.style.marginTop = "16px";
+  img.style.borderRadius = "16px";
+
+  $("resultScreen").appendChild(img);
+
+  alert("下に出た画像を長押しして「写真に保存」してください");
 };
 
 })();
