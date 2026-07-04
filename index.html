@@ -843,6 +843,8 @@ localStorage.setItem(STORAGE_KEY, JSON.stringify({
 
   questionIndex = 0;
   score = 0;
+  answerHistory = [];
+currentResult = null;
   $("score").textContent = score;
   $("settingsSheet").classList.remove("active");
 
