@@ -197,6 +197,100 @@ button{
   color:#40516b;
 }
 
+  .settings-open{
+  position:absolute;
+  top:14px;
+  right:14px;
+  border:0;
+  background:#edf6f9;
+  border-radius:999px;
+  width:44px;
+  height:44px;
+  font-size:22px;
+  font-weight:900;
+}
+
+.settings-sheet{
+  display:none;
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:999;
+  background:#fff;
+  border-radius:28px 28px 0 0;
+  padding:18px;
+  box-shadow:0 -8px 30px rgba(0,0,0,.18);
+  max-height:82vh;
+  overflow:auto;
+}
+
+.settings-sheet.active{
+  display:block;
+}
+
+.settings-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.settings-head h2{
+  margin:0;
+  font-size:22px;
+}
+
+.close-settings{
+  border:0;
+  background:#edf6f9;
+  border-radius:999px;
+  width:38px;
+  height:38px;
+  font-size:22px;
+  font-weight:900;
+}
+
+.setting-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin:12px 0;
+}
+
+.setting-actions button,
+.save-settings{
+  border:0;
+  border-radius:16px;
+  padding:12px;
+  font-weight:900;
+  background:#ffb703;
+  color:#263044;
+}
+
+.word-checks{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px;
+}
+
+.word-checks label{
+  background:#fff8df;
+  border:2px solid #f3d28a;
+  border-radius:16px;
+  padding:10px;
+  font-weight:900;
+}
+
+.review-toggle{
+  margin-top:16px;
+  background:#edf6f9;
+  border-radius:16px;
+  padding:12px;
+  font-weight:900;
+}
+
 </style>
 </head>
 <body>
