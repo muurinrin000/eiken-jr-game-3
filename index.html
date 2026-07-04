@@ -637,7 +637,8 @@ if(
     const container = type === "jp" ? $("jpChoices") : $("enChoices");
     const correct = current[key];
     const labels = ["①", "②", "③"];
-    const wrongs = shuffle(words.filter(w => w !== current)).slice(0,2).map(w => w[key]);
+const source = activeWords.length >= 3 ? activeWords : words;
+const wrongs = shuffle(source.filter(w => w !== current)).slice(0,2).map(w => w[key]);
     const options = shuffle([correct].concat(wrongs));
 
     container.innerHTML = "";
@@ -793,9 +794,9 @@ $("nextBtnBottom").style.display = "none";
 
   $("resultScreen").style.display = "block";
   $("finalScore").textContent = score;
-  $("totalScore").textContent = words.length;
+$("totalScore").textContent = activeWords.length;
 
-  if(score === words.length){
+if(score === activeWords.length){
     $("resultMessage").textContent = "すごい！ぜんぶ正解！";
   }else if(score >= Math.ceil(words.length * 0.7)){
     $("resultMessage").textContent = "よくできました！";
