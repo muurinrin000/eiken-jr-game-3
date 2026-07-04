@@ -293,6 +293,52 @@ button{
   font-weight:900;
 }
 
+  .result-card{
+  background:#fffdf2;
+  border:3px solid #ffcf5a;
+  border-radius:24px;
+  padding:18px;
+  margin-top:16px;
+  text-align:left;
+}
+
+.result-card-title{
+  text-align:center;
+  font-size:22px;
+  font-weight:900;
+}
+
+.result-date{
+  text-align:center;
+  margin-top:8px;
+  color:#607089;
+  font-weight:900;
+}
+
+.result-score{
+  text-align:center;
+  font-size:28px;
+  font-weight:900;
+  margin:14px 0;
+  color:#fb8500;
+}
+
+.result-list{
+  display:grid;
+  gap:8px;
+  margin-top:12px;
+}
+
+.result-item{
+  background:#fff;
+  border-radius:14px;
+  padding:10px 12px;
+  font-size:18px;
+  font-weight:900;
+}
+
+.result-ok{ color:#2a9d8f; }
+.result-ng{ color:#e76f51; }
 </style>
 
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
@@ -409,17 +455,25 @@ button{
     </div>
     
     <button id="nextBtnBottom" class="next-btn" type="button">つぎの問題へ</button>
-    <section id="resultScreen" style="display:none; text-align:center; padding:22px;">
-  <div style="font-size:48px;">🎉</div>
-  <h2 style="font-size:30px; margin:10px 0;">おつかれさま！</h2>
-  <p style="font-size:22px; font-weight:900;">
-    スコア：<span id="finalScore">0</span> / <span id="totalScore">0</span>
-  </p>
-  <p id="resultMessage" style="font-size:20px; font-weight:900;"></p>
+<section id="resultScreen" style="display:none; text-align:center; padding:22px;">
+  <div class="result-card" id="captureArea">
+    <div class="result-card-title">🏆 英検Jr. イラスト3択ゲーム</div>
+    <div id="resultDate" class="result-date"></div>
+
+    <div class="result-score">
+      ⭐ <span id="finalScore">0</span> / <span id="totalScore">0</span>
+    </div>
+
+    <p id="resultMessage" style="text-align:center; font-size:20px; font-weight:900;"></p>
+
+    <div id="resultList" class="result-list"></div>
+  </div>
+
   <button id="restartBtn" class="next-btn" type="button">もう一度あそぶ</button>
-      <button id="captureBtn" class="next-btn" type="button">
-📸 結果を画像で保存
-</button>
+
+  <button id="captureBtn" class="next-btn" type="button">
+    📸 結果を画像で保存
+  </button>
 </section>
   </div>
 
@@ -468,7 +522,9 @@ let questionIndex = 0;
   let jpCorrect = false;
   let enCorrect = false;
   let pointAdded = false;
-
+let answerHistory = [];
+let currentResult = null;
+  
   const $ = id => document.getElementById(id);
 
   function shuffle(arr){
