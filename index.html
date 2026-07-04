@@ -294,6 +294,8 @@ button{
 }
 
 </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 <body>
 <div class="app">
@@ -415,6 +417,9 @@ button{
   </p>
   <p id="resultMessage" style="font-size:20px; font-weight:900;"></p>
   <button id="restartBtn" class="next-btn" type="button">もう一度あそぶ</button>
+      <button id="captureBtn" class="next-btn" type="button">
+📸 結果を画像で保存
+</button>
 </section>
   </div>
 
@@ -859,7 +864,34 @@ document.addEventListener("touchend", function(event){
   lastTouchEnd = now;
 }, { passive:false });
 
+
+  
+document.getElementById("captureBtn").onclick = async () => {
+
+  const restart = document.getElementById("restartBtn");
+  const capture = document.getElementById("captureBtn");
+
+  restart.style.display = "none";
+  capture.style.display = "none";
+
+  const canvas = await html2canvas(document.getElementById("resultScreen"),{
+    backgroundColor:"#ffffff",
+    scale:2
+  });
+
+  restart.style.display = "block";
+  capture.style.display = "block";
+
+  const link = document.createElement("a");
+  link.download = "eiken-result.png";
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+
+};
+
 })();
+
+  
 </script>
 </body>
 </html>
