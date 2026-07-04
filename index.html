@@ -854,6 +854,19 @@ localStorage.setItem(STORAGE_KEY, JSON.stringify({
   render();
 
   function showResult(){
+    $("resultDate").textContent = new Date().toLocaleString("ja-JP");
+
+$("resultList").innerHTML = answerHistory.map(item => {
+  const mark = item.correct ? "○" : "×";
+  const cls = item.correct ? "result-ok" : "result-ng";
+
+  return `
+    <div class="result-item">
+      <span class="${cls}">${mark}</span>
+      ${item.icon} ${item.en} / ${item.jp}
+    </div>
+  `;
+}).join("");
   document.querySelector(".image-area").style.display = "none";
 const tapNote = document.querySelector(".tap-note");
 if (tapNote) tapNote.style.display = "none";
