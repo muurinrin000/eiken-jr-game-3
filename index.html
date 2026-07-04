@@ -605,6 +605,9 @@ function speakBoth(){
       }else{
         btn.classList.add("wrong");
         playWrongSound();
+        if(!wrongWords.some(w => w.en === current.en)){
+  wrongWords.push(current);
+}
         Array.from(container.children).forEach(b => {
           if(b.dataset.value === correct) b.classList.add("correct");
         });
@@ -710,6 +713,64 @@ $("nextBtnBottom").onclick = nextQuestion;
     speechSynthesis.getVoices();
     speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
   }
+
+
+  
+function buildSettings(){
+  const box = $("wordChecks");
+  box.innerHTML = "";
+
+  words.forEach((w, i) => {
+    const label = document.createElement("label");
+    label.innerHTML =
+      '<input type="checkbox" class="wordCheck" value="' + i + '" checked> ' +
+      w.icon + ' ' + w.jp + ' / ' + w.en;
+    box.appendChild(label);
+  });
+}
+
+$("settingsOpen").onclick = () => {
+  $("settingsSheet").classList.add("active");
+};
+
+$("settingsClose").onclick = () => {
+  $("settingsSheet").classList.remove("active");
+};
+
+$("selectAllBtn").onclick = () => {
+  document.querySelectorAll(".wordCheck").forEach(c => c.checked = true);
+};
+
+$("clearAllBtn").onclick = () => {
+  document.querySelectorAll(".wordCheck").forEach(c => c.checked = false);
+};
+
+$("saveSettingsBtn").onclick = () => {
+  reviewOnly = $("reviewOnlyCheck").checked;
+
+  if(reviewOnly && wrongWords.length > 0){
+    activeWords = wrongWords.slice();
+  }else{
+    const checked = Array.from(document.querySelectorAll(".wordCheck:checked"))
+      .map(c => words[Number(c.value)]);
+
+    if(checked.length === 0){
+      alert("最低1つは選んでください");
+      return;
+    }
+
+    activeWords = checked;
+  }
+
+  questionIndex = 0;
+  score = 0;
+  $("score").textContent = score;
+  $("settingsSheet").classList.remove("active");
+
+  render();
+};
+
+  buildSettings();
 
   render();
 
