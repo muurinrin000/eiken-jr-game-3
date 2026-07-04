@@ -662,6 +662,10 @@ function speakBoth(){
       }else{
         btn.classList.add("wrong");
         playWrongSound();
+
+        if(currentResult){
+    currentResult.correct = false;
+}
         if(!wrongWords.some(w => w.en === current.en)){
   wrongWords.push(current);
 }
