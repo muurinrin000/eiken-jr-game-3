@@ -415,6 +415,31 @@ button{
   <button id="restartBtn" class="next-btn" type="button">もう一度あそぶ</button>
 </section>
   </div>
+
+    <div id="settingsSheet" class="settings-sheet">
+  <div class="settings-head">
+    <h2>⚙️ 保護者向け設定</h2>
+    <button id="settingsClose" class="close-settings" type="button">×</button>
+  </div>
+
+  <strong>出題する単語</strong>
+
+  <div class="setting-actions">
+    <button id="selectAllBtn" type="button">すべて選択</button>
+    <button id="clearAllBtn" type="button">すべて外す</button>
+  </div>
+
+  <div id="wordChecks" class="word-checks"></div>
+
+  <label class="review-toggle">
+    <input id="reviewOnlyCheck" type="checkbox">
+    間違えた問題だけ復習
+  </label>
+
+  <button id="saveSettingsBtn" class="save-settings" type="button">
+    保存してはじめる
+  </button>
+</div>
   </main>
 </div>
 
@@ -432,6 +457,9 @@ const words = [
 {icon:"🫁", en:"chest", jp:"むね" },
 { icon:"🚶", en:"back", jp:"せなか" }
 ];
+  let activeWords = words.slice();
+let wrongWords = [];
+let reviewOnly = false;
 let questionIndex = 0;
   let score = 0;
   let current = words[0];
