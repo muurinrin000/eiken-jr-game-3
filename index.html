@@ -947,26 +947,24 @@ document.addEventListener("touchend", function(event){
 
   
 document.getElementById("captureBtn").onclick = async () => {
-
-  const restart = document.getElementById("restartBtn");
-  const capture = document.getElementById("captureBtn");
-
-  restart.style.display = "none";
-  capture.style.display = "none";
-
-  const canvas = await html2canvas(document.getElementById("captureArea"),{
+  const canvas = await html2canvas(document.getElementById("captureArea"), {
     backgroundColor:"#ffffff",
     scale:2
   });
 
-  restart.style.display = "block";
-  capture.style.display = "block";
+  const imageUrl = canvas.toDataURL("image/png");
 
-  const link = document.createElement("a");
-  link.download = "eiken-result.png";
-  link.href = canvas.toDataURL("image/png");
-  link.click();
-
+  const newWindow = window.open();
+  newWindow.document.write(`
+    <html>
+      <body style="margin:0; text-align:center; background:#f5f5f5;">
+        <p style="font-size:18px; font-weight:bold;">
+          画像を長押しして「写真に保存」してください
+        </p>
+        <img src="${imageUrl}" style="width:100%; max-width:420px;">
+      </body>
+    </html>
+  `);
 };
 
 })();
