@@ -431,10 +431,6 @@ button{
 
   <div id="wordChecks" class="word-checks"></div>
 
-  <label class="review-toggle">
-    <input id="reviewOnlyCheck" type="checkbox">
-    間違えた問題だけ復習
-  </label>
 
   <button id="saveSettingsBtn" class="save-settings" type="button">
     保存してはじめる
@@ -459,7 +455,6 @@ const words = [
 ];
   let activeWords = words.slice();
 let wrongWords = [];
-let reviewOnly = false;
 let questionIndex = 0;
   let score = 0;
   let current = words[0];
@@ -747,24 +742,16 @@ $("clearAllBtn").onclick = () => {
 };
 
 $("saveSettingsBtn").onclick = () => {
-  reviewOnly = $("reviewOnlyCheck").checked;
 
-if(reviewOnly){
-  if(wrongWords.length === 0){
-    alert("まだ間違えた問題がありません");
-    return;
-  }
-  activeWords = wrongWords.slice();
-}else{
-    const checked = Array.from(document.querySelectorAll(".wordCheck:checked"))
-      .map(c => words[Number(c.value)]);
+const checked = Array.from(document.querySelectorAll(".wordCheck:checked"))
+  .map(c => words[Number(c.value)]);
 
-    if(checked.length === 0){
-      alert("最低1つは選んでください");
-      return;
-    }
+if(checked.length === 0){
+  alert("最低1つは選んでください");
+  return;
+}
 
-    activeWords = checked;
+activeWords = checked;
   }
 
   questionIndex = 0;
