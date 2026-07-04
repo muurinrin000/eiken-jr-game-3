@@ -956,20 +956,22 @@ $("captureBtn").onclick = async () => {
     scale:2
   });
 
-  const imageUrl = canvas.toDataURL("image/png");
+  canvas.toBlob(async (blob) => {
+    const file = new File([blob], "eiken-result.png", { type:"image/png" });
 
-  const img = document.createElement("img");
-  img.src = imageUrl;
-  img.style.width = "100%";
-  img.style.maxWidth = "420px";
-  img.style.marginTop = "16px";
-  img.style.borderRadius = "16px";
-
-  $("resultScreen").appendChild(img);
-
-  alert("下に出た画像を長押しして「写真に保存」してください");
+    if(navigator.canShare && navigator.canShare({ files:[file] })){
+      await navigator.share({
+        files:[file],
+        title:"英検Jr. 結果",
+        text:"今日の学習結果です"
+      });
+    }else{
+      alert("画像を長押しして保存してください");
+    }
+  }, "image/png");
 };
 
+  
 })();
 
   
