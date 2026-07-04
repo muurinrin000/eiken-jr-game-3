@@ -653,12 +653,12 @@ if(
   }
 
   function render(){
-    current = words[questionIndex % words.length];
+current = activeWords[questionIndex % activeWords.length];
     jpCorrect = false;
     enCorrect = false;
     pointAdded = false;
 
-    $("counter").textContent = "問題 " + ((questionIndex % words.length) + 1) + " / " + words.length;
+$("counter").textContent = "問題 " + ((questionIndex % activeWords.length) + 1) + " / " + activeWords.length;
     $("imageBtn").textContent = current.icon;
     $("feedback").textContent = "";
     $("stars").textContent = "";
@@ -687,7 +687,7 @@ if(
 function nextQuestion(){
   questionIndex++;
 
-  if (questionIndex >= words.length) {
+if (questionIndex >= activeWords.length) {
     showResult();
   } else {
     render();
