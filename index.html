@@ -749,9 +749,13 @@ $("clearAllBtn").onclick = () => {
 $("saveSettingsBtn").onclick = () => {
   reviewOnly = $("reviewOnlyCheck").checked;
 
-  if(reviewOnly && wrongWords.length > 0){
-    activeWords = wrongWords.slice();
-  }else{
+if(reviewOnly){
+  if(wrongWords.length === 0){
+    alert("まだ間違えた問題がありません");
+    return;
+  }
+  activeWords = wrongWords.slice();
+}else{
     const checked = Array.from(document.querySelectorAll(".wordCheck:checked"))
       .map(c => words[Number(c.value)]);
 
