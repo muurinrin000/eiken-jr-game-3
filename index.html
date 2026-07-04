@@ -750,8 +750,19 @@ $("counter").textContent = "問題 " + ((questionIndex % activeWords.length) + 1
   speak("Can you hear me?", "en-US", 0.8);
 };
   $("startBtn").onclick = () => {
+
+  // ←追加
+  answerHistory = [];
+  currentResult = null;
+  questionIndex = 0;
+  score = 0;
+  $("score").textContent = score;
+
+  render();
+
   $("startOverlay").style.display = "none";
   $("gameArea").style.display = "block";
+
   speakEnNormal();
 };
   
@@ -903,6 +914,11 @@ if(score === activeWords.length){
 $("restartBtn").onclick = () => {
   questionIndex = 0;
   score = 0;
+
+  // ←追加
+  answerHistory = [];
+  currentResult = null;
+
   $("score").textContent = score;
 
   document.querySelector(".image-area").style.display = "grid";
