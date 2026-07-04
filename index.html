@@ -657,6 +657,7 @@ function speakBoth(){
       if(value === correct){
         btn.classList.add("correct");
         playCorrectSound();
+        if(currentResult) currentResult.correct = false;
         if(type === "jp") jpCorrect = true;
         if(type === "en") enCorrect = true;
         $("feedback").textContent = "いいね！";
@@ -753,6 +754,10 @@ $("counter").textContent = "問題 " + ((questionIndex % activeWords.length) + 1
 };
   
 function nextQuestion(){
+  if(currentResult){
+  answerHistory.push(currentResult);
+  currentResult = null;
+}
   questionIndex++;
 
 if (questionIndex >= activeWords.length) {
