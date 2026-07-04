@@ -716,6 +716,12 @@ const wrongs = shuffle(source.filter(w => w !== current)).slice(0,2).map(w => w[
 
   function render(){
 current = activeWords[questionIndex % activeWords.length];
+    currentResult = {
+  icon: current.icon,
+  en: current.en,
+  jp: current.jp,
+  correct: true
+};
     jpCorrect = false;
     enCorrect = false;
     pointAdded = false;
