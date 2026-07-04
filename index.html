@@ -710,19 +710,26 @@ $("nextBtnBottom").onclick = nextQuestion;
     speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
   }
 
-
+const STORAGE_KEY = "bodyPartsGameSettings";
   
 function buildSettings(){
   const box = $("wordChecks");
   box.innerHTML = "";
 
+  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+  const savedIndexes = saved && saved.selectedIndexes ? saved.selectedIndexes : words.map((_, i) => i);
+
   words.forEach((w, i) => {
+    const checked = savedIndexes.includes(i) ? "checked" : "";
+
     const label = document.createElement("label");
     label.innerHTML =
-      '<input type="checkbox" class="wordCheck" value="' + i + '" checked> ' +
+      '<input type="checkbox" class="wordCheck" value="' + i + '" ' + checked + '> ' +
       w.icon + ' ' + w.jp + ' / ' + w.en;
     box.appendChild(label);
   });
+
+  activeWords = savedIndexes.map(i => words[i]).filter(Boolean);
 }
 
 $("settingsOpen").onclick = () => {
@@ -752,6 +759,13 @@ if(checked.length === 0){
 }
 
 activeWords = checked;
+
+  const selectedIndexes = Array.from(document.querySelectorAll(".wordCheck:checked"))
+  .map(c => Number(c.value));
+
+localStorage.setItem(STORAGE_KEY, JSON.stringify({
+  selectedIndexes: selectedIndexes
+}));
 
   questionIndex = 0;
   score = 0;
